@@ -26,7 +26,9 @@
     "sourceType": "module"
   },
   "plugins": ["react", "react-hooks", "@typescript-eslint"],
-  "rules": {},
+  "rules": {
+    "@typescript-eslint/semi": ["error", "always"]
+  },
   "settings": {
     "react": { "version": "detect" }
   }
