@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from 'react-dom';
 
-const Application: React.SFC<{}> = () => (
+const Application: React.FunctionComponent<{}> = () => (
   <h1>Application</h1>
 );
 
