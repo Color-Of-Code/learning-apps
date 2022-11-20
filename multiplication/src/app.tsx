@@ -24,9 +24,11 @@ export default function App() {
   const [complete, setComplete] = React.useState<boolean>(false);
 
   const startQuiz = () => {
-    setComplete(false);
     const newQuestions = createQuestions(TOTAL_QUESTIONS);
+    setComplete(false);
     setQuestions(newQuestions);
+    setNumber(0);
+    setUserAnswers([]);
     setGameOver(false);
   };
 
@@ -65,10 +67,10 @@ export default function App() {
         {!gameOver ? <p className="score">Score: {score}</p> : null}
         {!gameOver && !complete && (
           <QuestionCard
-            questionNum={number + 1}
+            number={number + 1}
             question={questions[number].question}
             answers={questions[number].answers}
-            totalQuestions={TOTAL_QUESTIONS}
+            total={TOTAL_QUESTIONS}
             userAnswer={userAnswers ? userAnswers[number] : undefined}
             callback={checkAnswer}
           />

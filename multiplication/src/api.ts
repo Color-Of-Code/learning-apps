@@ -1,3 +1,5 @@
+import { uniq } from "lodash";
+
 const shuffleArray = (array: any[]) => {
   return [...array].sort(() => Math.random() - 0.5);
 };
@@ -15,12 +17,11 @@ function createQuestion(): QuestionState {
   const b = Math.floor(Math.random() * 10) + 1;
   const question = `${a} x ${b}`;
   const correct = `${a * b}`;
-  const incorrect = [
-    `${a * b - 2}`,
-    `${a * b + 2}`,
-    `${a * (b - 1)}`,
-    `${a * (b + 1)}`,
-  ].filter((n) => +n > 0 && +n < 100);
+  const incorrect = uniq(
+    [`${a * b - 2}`, `${a * b + 2}`, `${a * (b - 1)}`, `${a * (b + 1)}`].filter(
+      (n) => +n > 0 && +n < 100
+    )
+  );
   return {
     question,
     correct_answer: correct,

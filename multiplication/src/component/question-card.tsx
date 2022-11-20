@@ -9,8 +9,8 @@ type Props = {
   answers: string[]
   callback: any
   userAnswer: AnswerObject | undefined
-  questionNum: number
-  totalQuestions: number
+  number: number
+  total: number
 };
 
 const QuestionCard: React.FC<Props> = ({
@@ -18,21 +18,19 @@ const QuestionCard: React.FC<Props> = ({
   answers,
   callback,
   userAnswer,
-  questionNum,
-  totalQuestions
+  number,
+  total
 }) => {
   return (
     <Wrapper>
-      <p className="number">
-        Question: {questionNum} / {totalQuestions}
-      </p>
-      <p className="question">{question}</p>
+      <p key={'number'} className="number">{number} / {total}</p>
+      <p key={'question'} className="question">{question}</p>
 
-      {answers.map((answer: string) => (
+      {answers.map((answer: string, i: number) => (
         <ButtonWrapper
           correct={userAnswer?.correctAnswer === answer}
           userClicked={userAnswer?.answer === answer}
-          key={answer}
+          key={i}
         >
           <button disabled={!!userAnswer} value={answer} onClick={callback}>
             <span>{answer}</span>
