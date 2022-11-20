@@ -1,9 +1,7 @@
 import React from 'react';
-import { render } from 'react-dom';
-import './assets/index.scss';
+import { createRoot } from 'react-dom/client';
 
-const Application: React.FunctionComponent = () => (
-    <h1>Application</h1>
-);
+import App from './app';
 
-render(<Application />, document.getElementById('root'));
+const root = createRoot(document.getElementById('root'));
+root.render(<App />);
