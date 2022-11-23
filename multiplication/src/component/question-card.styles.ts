@@ -37,7 +37,7 @@ export const ButtonWrapper = styled.div<ButtonProps>`
     user-select: none;
     width: 50%;
     background: ${({ correct, userClicked }) =>
-      correct ? 'green' : !correct && userClicked ? 'red' : null};
+      correct ? '#5af75a' : !correct && userClicked ? 'red' : null};
     margin-bottom: 5px;
     border-radius: 5px;
     padding: 5px 10px;

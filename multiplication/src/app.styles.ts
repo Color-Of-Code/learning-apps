@@ -34,7 +34,7 @@ export const Wrapper = styled.div`
   }
 
   h1 {
-    background: linear-gradient(to right,#2f16de,#00337d);
+    background: linear-gradient(to right, rgb(39, 183, 198), rgb(45, 162, 182)) 0% 0% / 100%;
     background-size: 100%;
     background-clip: text;
     -webkit-background-clip: text;
@@ -50,7 +50,7 @@ export const Wrapper = styled.div`
   .start,
   .next {
     cursor: pointer;
-    background: #6d90d4;
+    background: rgb(26, 111, 108);
     width: 50%;
     color: #fff;
     border: none;
