@@ -1,20 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-import {Answer, Question, Screen} from './types';
+import { Answer, Question, Screen } from './types';
 import { createQuestions } from './utils';
 
 import QuestionCard from './component/question-card';
 
 import { GlobalStyle, Wrapper } from './app.styles';
+import { useLocalStorage } from './hooks/use-local-storage';
 
 const questionAmount = 10;
 
 export default function App () {
-  const [screen, setScreen] = React.useState<Screen>(Screen.Start);
-  const [questions, setQuestions] = React.useState<Question[]>([]);
-  const [number, setNumber] = React.useState<number>(0);
-  const [answers, setAnswers] = React.useState<Answer[]>([]);
-  const [score, setScore] = React.useState<number>(0);
+  const [screen, setScreen] = useState<Screen>(Screen.Start);
+  const [questions, setQuestions] = useState<Question[]>([]);
+  const [number, setNumber] = useState<number>(0);
+  const [answers, setAnswers] = useState<Answer[]>([]);
+  const [score, setScore] = useState<number>(0);
+  const [statistics, setStatistics] = useLocalStorage('statistics', {});
 
   const currentQuestion = questions[number];
   const currentAnswer = answers[number];
@@ -30,7 +32,20 @@ export default function App () {
 
   const processAnswer = (answer: Answer) => {
     const correct = currentQuestion.correctAnswer === answer.answer;
-    if (correct) setScore((prev) => prev + 1);
+    if (correct)
+      setScore((prev) => prev + 1);
+
+    const key = currentQuestion.question;
+    const statUpdate = {
+      [key]: {
+        ok: (statistics[key]?.ok || 0) + correct ? 1 : 0,
+        ng: (statistics[key]?.ng || 0) + correct ? 0 : 1
+      }
+    };
+    setStatistics({
+      ...statistics,
+      ...statUpdate
+    })
     setAnswers((prev) => [...prev, answer]);
   };
 

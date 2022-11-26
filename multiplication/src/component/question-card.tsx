@@ -19,7 +19,7 @@ const QuestionCard: React.FC<Props> = ({
   number,
   total
 }) => {
-  const answerProvided = !!answer;
+  const answerProvided = !(answer == null);
 
   const procesAnswer = (answer: string) => {
     onAnswer({
