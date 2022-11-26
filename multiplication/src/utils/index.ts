@@ -1,25 +1,10 @@
 import { uniq } from 'lodash';
 
-export interface Answer {
-  question: Question
-  answer: string
-}
+import { Question } from '../types';
 
-export enum Screen {
-  Start,
-  Question,
-  End,
-}
-
-const shuffleArray = (array: any[]): any[] => {
+const shuffleArray = (array: string[]): string[] => {
   return [...array].sort(() => Math.random() - 0.5);
 };
-
-export interface Question {
-  question: string
-  correctAnswer: string
-  possibleAnswers: string[]
-}
 
 function createQuestion (): Question {
   const a = Math.floor(Math.random() * 10) + 1;
@@ -28,7 +13,7 @@ function createQuestion (): Question {
   const correct = `${a * b}`;
   const incorrect = uniq(
     [`${a * b - 2}`, `${a * b + 2}`, `${a * (b - 1)}`, `${a * (b + 1)}`].filter(
-      (n) => +n > 0 && +n < 100 && +n != +correct
+      (n) => +n > 0 && +n < 100 && +n !== +correct
     )
   );
   return {

@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { createQuestions, Answer, Question, Screen } from './api';
+import {Answer, Question, Screen} from './types';
+import { createQuestions } from './utils';
 
 import QuestionCard from './component/question-card';
 

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Answer, Question } from '~/api';
+import { Answer, Question } from '../types';
 
 import { Wrapper, ButtonWrapper } from './question-card.styles';
 
@@ -28,7 +28,6 @@ const QuestionCard: React.FC<Props> = ({
     });
   };
 
-
   return (
     <Wrapper>
       <p key={'number'} className="number">{number} / {total}</p>
@@ -40,7 +39,7 @@ const QuestionCard: React.FC<Props> = ({
           userClicked={answer?.answer === a}
           key={i}
         >
-          <button disabled={answerProvided} value={a} onClick={x => procesAnswer(a)}>
+          <button disabled={answerProvided} value={a} onClick={() => procesAnswer(a)}>
             <span>{a}</span>
           </button>
         </ButtonWrapper>
