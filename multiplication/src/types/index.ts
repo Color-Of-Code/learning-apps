@@ -14,3 +14,10 @@ export interface Question {
   correctAnswer: string
   possibleAnswers: string[]
 }
+
+export interface Statistics {
+  [key:string] : {
+    ng: number,
+    ok: number
+  } | null
+}

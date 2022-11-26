@@ -7,6 +7,7 @@ import QuestionCard from './component/question-card';
 
 import { GlobalStyle, Wrapper } from './app.styles';
 import { useLocalStorage } from './hooks/use-local-storage';
+import StatisticsView from './component/statistics';
 
 const questionAmount = 10;
 
@@ -69,6 +70,7 @@ export default function App () {
       <GlobalStyle />
       <Wrapper>
         <h1>Lara's Multiplication</h1>
+        <StatisticsView statistics={statistics}/>
         {showEnd && <div className="complete">END</div>}
         {showStart && (
           <button className="start" onClick={startQuiz}>
