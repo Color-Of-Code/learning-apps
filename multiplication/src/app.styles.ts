@@ -16,6 +16,11 @@ export const GlobalStyle = createGlobalStyle`
   *{
     box-sizing: border-box;
   }
+
+  .App {
+    font-family: sans-serif;
+    text-align: center;
+  }
 `;
 
 export const Wrapper = styled.div`

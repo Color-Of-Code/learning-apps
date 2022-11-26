@@ -1,17 +1,17 @@
-import React from "react";
+import React from 'react';
 
-import { AnswerObject } from "../app";
+import { AnswerObject } from '../app';
 
-import { Wrapper, ButtonWrapper } from "./question-card.styles";
+import { Wrapper, ButtonWrapper } from './question-card.styles';
 
-type Props = {
+interface Props {
   question: string
   answers: string[]
   callback: any
   userAnswer: AnswerObject | undefined
   number: number
   total: number
-};
+}
 
 const QuestionCard: React.FC<Props> = ({
   question,
@@ -29,10 +29,10 @@ const QuestionCard: React.FC<Props> = ({
       {answers.map((answer: string, i: number) => (
         <ButtonWrapper
           correct={userAnswer?.correctAnswer === answer}
-          userClicked={userAnswer?.answer === answer}
+          userClicked={userAnswer?.userAnswer === answer}
           key={i}
         >
-          <button disabled={!!userAnswer} value={answer} onClick={callback}>
+          <button disabled={!(userAnswer == null)} value={answer} onClick={callback}>
             <span>{answer}</span>
           </button>
         </ButtonWrapper>

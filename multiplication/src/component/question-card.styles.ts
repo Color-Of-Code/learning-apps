@@ -16,10 +16,10 @@ export const Wrapper = styled.div`
   }
 `;
 
-type ButtonProps = {
+interface ButtonProps {
   correct: boolean
   userClicked: boolean
-};
+}
 
 export const ButtonWrapper = styled.div<ButtonProps>`
   display: flex;
@@ -36,7 +36,7 @@ export const ButtonWrapper = styled.div<ButtonProps>`
     cursor: pointer;
     user-select: none;
     width: 50%;
-    background: ${({ correct, userClicked }) =>
+    background: ${({ correct, userClicked }: ButtonProps) =>
       correct ? '#5af75a' : !correct && userClicked ? 'red' : null};
     margin-bottom: 5px;
     border-radius: 5px;
