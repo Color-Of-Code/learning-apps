@@ -1,39 +1,47 @@
 import React from 'react';
 
-import { AnswerObject } from '../app';
+import { Answer, Question } from '~/api';
 
 import { Wrapper, ButtonWrapper } from './question-card.styles';
 
 interface Props {
-  question: string
-  answers: string[]
-  callback: any
-  userAnswer: AnswerObject | undefined
+  question: Question
+  onAnswer: any
+  answer: Answer | undefined
   number: number
   total: number
 }
 
 const QuestionCard: React.FC<Props> = ({
   question,
-  answers,
-  callback,
-  userAnswer,
+  onAnswer,
+  answer,
   number,
   total
 }) => {
+  const answerProvided = !!answer;
+
+  const procesAnswer = (answer: string) => {
+    onAnswer({
+      question,
+      answer
+    });
+  };
+
+
   return (
     <Wrapper>
       <p key={'number'} className="number">{number} / {total}</p>
-      <p key={'question'} className="question">{question}</p>
+      <p key={'question'} className="question">{question.question}</p>
 
-      {answers.map((answer: string, i: number) => (
+      {question.possibleAnswers.map((a: string, i: number) => (
         <ButtonWrapper
-          correct={userAnswer?.correctAnswer === answer}
-          userClicked={userAnswer?.userAnswer === answer}
+          correct={question.correctAnswer === a && answerProvided}
+          userClicked={answer?.answer === a}
           key={i}
         >
-          <button disabled={!(userAnswer == null)} value={answer} onClick={callback}>
-            <span>{answer}</span>
+          <button disabled={answerProvided} value={a} onClick={x => procesAnswer(a)}>
+            <span>{a}</span>
           </button>
         </ButtonWrapper>
       ))}

@@ -1,58 +1,40 @@
 import React from 'react';
 
-import { createQuestions, QuestionState } from './api';
+import { createQuestions, Answer, Question, Screen } from './api';
 
 import QuestionCard from './component/question-card';
 
 import { GlobalStyle, Wrapper } from './app.styles';
 
-const TOTAL_QUESTIONS = 2;
-
-export interface AnswerObject {
-  question: string
-  correctAnswer: string
-  answer: string
-  correct: boolean
-}
-
-export enum Screen {
-  Start,
-  Question,
-  End,
-}
+const questionAmount = 10;
 
 export default function App () {
   const [screen, setScreen] = React.useState<Screen>(Screen.Start);
-  const [questions, setQuestions] = React.useState<QuestionState[]>([]);
+  const [questions, setQuestions] = React.useState<Question[]>([]);
   const [number, setNumber] = React.useState<number>(0);
-  const [answers, setAnswers] = React.useState<AnswerObject[]>([]);
+  const [answers, setAnswers] = React.useState<Answer[]>([]);
   const [score, setScore] = React.useState<number>(0);
 
+  const currentQuestion = questions[number];
+  const currentAnswer = answers[number];
+
   const startQuiz = () => {
-    const newQuestions = createQuestions(TOTAL_QUESTIONS);
+    const newQuestions = createQuestions(questionAmount);
     setQuestions(newQuestions);
     setNumber(0);
+    setScore(0);
     setAnswers([]);
     setScreen(Screen.Question);
   };
 
-  const checkAnswer = (e: React.MouseEvent<HTMLButtonElement>) => {
-    if (screen === Screen.Question) {
-      const answer = e.currentTarget.value;
-      const correct = questions[number].correctAnswer === answer;
-      if (correct) setScore((prev) => prev + 1);
-      const answerObject = {
-        question: questions[number].question,
-        correctAnswer: questions[number].correctAnswer,
-        answer,
-        correct
-      };
-      setAnswers((prev) => [...prev, answerObject]);
-    }
+  const processAnswer = (answer: Answer) => {
+    const correct = currentQuestion.correctAnswer === answer.answer;
+    if (correct) setScore((prev) => prev + 1);
+    setAnswers((prev) => [...prev, answer]);
   };
 
   const handleNext = () => {
-    if (number < TOTAL_QUESTIONS - 1) {
+    if (number < questionAmount - 1) {
       setNumber((prev) => prev + 1);
       setScreen(Screen.Question);
     } else {
@@ -60,34 +42,34 @@ export default function App () {
     }
   };
 
-  const start = screen === Screen.Start;
-  const question = screen === Screen.Question;
-  const end = screen === Screen.End;
+  const showEnd = screen === Screen.End;
+  const showScore = screen === Screen.Question || screen === Screen.End;
+  const showStart = screen === Screen.Start || screen === Screen.End;
+  const showQuestion = screen === Screen.Question;
+  const showNext = showQuestion && !!currentAnswer;
 
   return (
     <>
       <GlobalStyle />
       <Wrapper>
         <h1>Lara's Multiplication</h1>
-        {end && <div className="complete">END</div>}
-        {(start || end) && (
+        {showEnd && <div className="complete">END</div>}
+        {showStart && (
           <button className="start" onClick={startQuiz}>
             Start
           </button>
         )}
-        {(question || end) && <p className="score">Score: {score}</p>}
-        {question && !end && (
+        {showScore && <p className="score">Score: {score}</p>}
+        {showQuestion && (
           <QuestionCard
             number={number + 1}
-            question={questions[number].question}
-            answers={questions[number].answers}
-            total={TOTAL_QUESTIONS}
-            userAnswer={answers ? answers[number] : undefined}
-            callback={checkAnswer}
+            question={currentQuestion}
+            total={questionAmount}
+            answer={currentAnswer}
+            onAnswer={processAnswer}
           />
         )}
-
-        {question && !end && !!answers[number] && (
+        {showNext && (
           <button className="next" onClick={handleNext}>
             Next
           </button>
