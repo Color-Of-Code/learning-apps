@@ -13,6 +13,8 @@ export const Wrapper = styled.div`
 
   .question {
     font-weight: bold;
+    font-family: 'sans';
+    font-size: 1.2rem;
   }
 `;
 

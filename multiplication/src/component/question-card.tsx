@@ -8,16 +8,12 @@ interface Props {
   question: Question
   onAnswer: Dispatch<Answer>
   answer: Answer | undefined
-  number: number
-  total: number
 }
 
 const QuestionCard: React.FC<Props> = ({
   question,
   onAnswer,
-  answer,
-  number,
-  total
+  answer
 }) => {
   const answerProvided = !(answer == null);
 
@@ -30,7 +26,6 @@ const QuestionCard: React.FC<Props> = ({
 
   return (
     <Wrapper>
-      <p key={'number'} className="number">{number} / {total}</p>
       <p key={'question'} className="question">{question.question}</p>
 
       {question.possibleAnswers.map((a: string, i: number) => (

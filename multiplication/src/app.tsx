@@ -9,7 +9,7 @@ import { GlobalStyle, Wrapper } from './app.styles';
 import { useLocalStorage } from './hooks/use-local-storage';
 import StatisticsView from './component/statistics';
 
-const questionAmount = 10;
+const questionAmount = 20;
 
 const App: React.FC = () => {
   const [screen, setScreen] = useState<Screen>(Screen.Start);
@@ -83,12 +83,10 @@ const App: React.FC = () => {
             Start
           </button>
         )}
-        {showScore && <p className="score">Score: {score}</p>}
+        {showScore && <p className="score">Score: {score} / {questionAmount} ({20 - number})</p>}
         {showQuestion && (
           <QuestionCard
-            number={number + 1}
             question={currentQuestion}
-            total={questionAmount}
             answer={currentAnswer}
             onAnswer={processAnswer}
           />
