@@ -1,0 +1,22 @@
+{
+    "overrides": [
+        {
+            "files": "*.scss",
+            "options": {
+                "parser": "scss",
+                "singleQuote": true
+            }
+        },
+        {
+            "files": [
+                "*.ts",
+                "*.tsx"
+            ],
+            "options": {
+                "singleQuote": true,
+                "trailingComma": "none",
+                "arrowParens": "avoid"
+            }
+        }
+    ]
+}

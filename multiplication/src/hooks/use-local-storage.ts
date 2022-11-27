@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react';
+import { Dispatch, useEffect, useState } from 'react';
 
-export const useLocalStorage = (storageKey: string, fallbackState: any) => {
+export function useLocalStorage<TValue>(storageKey: string, fallbackState: TValue): [TValue, Dispatch<TValue>] {
   const json = localStorage.getItem(storageKey) || '{}';
 
-  const [value, setValue] = useState<any>(
+  const [value, setValue] = useState<TValue>(
     JSON.parse(json) ?? fallbackState
   );
 
@@ -12,4 +12,4 @@ export const useLocalStorage = (storageKey: string, fallbackState: any) => {
   }, [value, storageKey]);
 
   return [value, setValue];
-};
+}
