@@ -3,7 +3,7 @@ export interface Answer {
   answer: string
 }
 
-export type Screen = 'Start' | 'Question' | 'End';
+export type Screen = 'Start' | 'Question';
 
 export interface Question {
   title: string

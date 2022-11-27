@@ -8,40 +8,36 @@ import { useLocalStorage } from './hooks/use-local-storage';
 
 import QuestionCard from './component/question-card';
 import StatisticsView from './component/statistics';
-import BannerEnd from './component/banner-end';
 import Command from './component/command';
 import Score from './component/score';
-
-const questionAmount = 20;
 
 const App: React.FC = () => {
   const [screen, setScreen] = useState<Screen>('Start');
   const [questions, setQuestions] = useState<Question[]>([]);
   const [number, setNumber] = useState<number>(0);
-  const [answers, setAnswers] = useState<Answer[]>([]);
+  const [answer, setAnswer] = useState<Answer|null>(null);
   const [score, setScore] = useState<number>(0);
   const [statistics, setStatistics] = useLocalStorage<Statistics>(
     'statistics',
     {}
   );
 
-  const currentQuestion = questions[number];
-  const currentAnswer = answers[number];
+  const question = questions[number];
 
   const start = (): void => {
-    const newQuestions = createQuestions(questionAmount);
+    const newQuestions = createQuestions(20);
     setQuestions(newQuestions);
     setNumber(0);
     setScore(0);
-    setAnswers([]);
+    setAnswer(null);
     setScreen('Question');
   };
 
   const processAnswer = (answer: Answer): void => {
-    const correct = currentQuestion.correctAnswer === answer.answer;
+    const correct = question.correctAnswer === answer.answer;
     if (correct) setScore(prev => prev + 1);
 
-    const key = currentQuestion.title;
+    const key = question.title;
     const value = statistics[key] ?? { ok: 0, ng: 0, errors: [] };
     const errors = correct
       ? (value.errors ?? [])
@@ -58,21 +54,16 @@ const App: React.FC = () => {
       ...statistics,
       ...statUpdate
     });
-    setAnswers(prev => [...prev, answer]);
+    setAnswer(answer);
   };
 
   const processNext = (): void => {
-    if (number < questionAmount - 1) {
-      setScreen('Question');
-      setNumber(prev => prev + 1);
-    } else {
-      setScreen('End');
-    }
+    setNumber(prev => prev + 1);
+    setAnswer(null);
   };
 
-  const showEnd = screen === 'End';
   const showScore = screen !== 'Start';
-  const showStart = screen === 'Start' || screen === 'End';
+  const showStart = screen === 'Start';
   const showQuestion = screen === 'Question';
 
   return (
@@ -81,13 +72,12 @@ const App: React.FC = () => {
       <Wrapper>
         <Title>Multiplication</Title>
         <StatisticsView statistics={statistics} />
-        {showEnd && <BannerEnd />}
         {showStart && <Command onClick={start}>START</Command>}
-        {showScore && <Score value={score} maximum={questionAmount} remaining={questionAmount - number - 1} />}
+        {showScore && <Score value={score} />}
         {showQuestion && (
           <QuestionCard
-            question={currentQuestion}
-            answer={currentAnswer}
+            question={question}
+            answer={answer}
             onAnswer={processAnswer}
             onNext={processNext}
           />

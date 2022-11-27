@@ -9,7 +9,7 @@ interface Props {
   question: Question
   onAnswer: Dispatch<Answer>
   onNext: Dispatch<void>
-  answer: Answer | undefined
+  answer: Answer | null
 }
 
 const QuestionCard: React.FC<Props> = ({
@@ -18,9 +18,9 @@ const QuestionCard: React.FC<Props> = ({
   onNext,
   answer
 }) => {
-  const answerProvided = !(answer == null);
+  const answerProvided = answer != null;
 
-  const procesAnswer = (answer: string): void => {
+  const processAnswer = (answer: string): void => {
     onAnswer({
       question,
       answer
@@ -39,7 +39,7 @@ const QuestionCard: React.FC<Props> = ({
           userClicked={answer?.answer === a}
           key={i}
         >
-          <button disabled={answerProvided} value={a} onClick={() => procesAnswer(a)}>
+          <button disabled={answerProvided} value={a} onClick={() => processAnswer(a)}>
             <span>{a}</span>
           </button>
         </ButtonWrapper>
