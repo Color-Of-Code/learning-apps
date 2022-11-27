@@ -1,21 +1,23 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   width: 100%;
   max-width: 1000px;
 
   .number {
     font-size: 1.1rem;
   }
+`;
 
-  .question {
-    font-weight: bold;
-    font-family: 'sans';
-    font-size: 1.2rem;
-  }
+export const QuestionWrapper = styled.div`
+  width: 100%;
+  max-width: 1000px;
+
+  font-weight: bold;
+  font-family: 'sans';
+  font-size: 1.2rem;
+  padding-top: 1em;
+  padding-bottom: 1em;
 `;
 
 interface ButtonProps {
@@ -24,9 +26,6 @@ interface ButtonProps {
 }
 
 export const ButtonWrapper = styled.div<ButtonProps>`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   width: 100%;
   transition: all 0.3s ease;
 

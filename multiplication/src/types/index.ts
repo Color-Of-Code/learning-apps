@@ -3,11 +3,7 @@ export interface Answer {
   answer: string
 }
 
-export enum Screen {
-  Start,
-  Question,
-  End,
-}
+export type Screen = 'Start' | 'Question' | 'End';
 
 export interface Question {
   question: string

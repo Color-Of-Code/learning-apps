@@ -2,7 +2,7 @@ import React, { Dispatch } from 'react';
 
 import { Answer, Question } from '../types';
 
-import { Wrapper, ButtonWrapper } from './question-card.styles';
+import { Wrapper, ButtonWrapper, QuestionWrapper } from './question-card.styles';
 
 interface Props {
   question: Question
@@ -26,7 +26,7 @@ const QuestionCard: React.FC<Props> = ({
 
   return (
     <Wrapper>
-      <p key={'question'} className="question">{question.question}</p>
+      <QuestionWrapper>{question.question}</QuestionWrapper>
 
       {question.possibleAnswers.map((a: string, i: number) => (
         <ButtonWrapper
