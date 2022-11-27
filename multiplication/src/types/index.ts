@@ -16,7 +16,7 @@ export interface Question {
 }
 
 export interface Statistics {
-  [key:string] : {
+  [key: string]: {
     ng: number,
     ok: number
   } | null
