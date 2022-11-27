@@ -143,7 +143,7 @@ var r,a,o,i,u,l,c,s,f,d,p,h,v,g,m,y,b,w,_,k,x,S,C,E,z,P,N,T;e(t.exports,"AsyncMo
   font-weight: bold;
   box-shadow: 1px 3px #0038a3;
   max-width: 300px;
-`;var St=({onClick:e})=>(0,i.jsx)(xt,{onClick:e,children:"NEXT"});o("fYo6y");var Ct=({onClick:e})=>(0,i.jsx)(xt,{onClick:e,children:"START"});o("fYo6y");const Et=ct.div`
+`;var St=({onClick:e,children:t})=>(0,i.jsx)(xt,{onClick:e,children:t});o("fYo6y");const Ct=ct.div`
   font-size: 1.2rem;
   background: #6695c1;
   width: 100%;
@@ -151,4 +151,4 @@ var r,a,o,i,u,l,c,s,f,d,p,h,v,g,m,y,b,w,_,k,x,S,C,E,z,P,N,T;e(t.exports,"AsyncMo
   color: #fff;
   box-shadow: 2px 2px #0085a3;
   padding: 2px;
-`;var zt=({value:e,maximum:t,remaining:n})=>(0,i.jsxs)(Et,{children:["Score: ",e," / ",t," (",n,")"]});var Pt=()=>{const[e,t]=(0,c.useState)("Start"),[n,r]=(0,c.useState)([]),[a,o]=(0,c.useState)(0),[u,l]=(0,c.useState)([]),[s,d]=(0,c.useState)(0),[p,h]=pt("statistics",{}),v=n[a],g=u[a],m="End"===e,y="Question"===e||"End"===e,b="Start"===e||"End"===e,w="Question"===e,_=w&&void 0!==g;return(0,i.jsxs)(i.Fragment,{children:[(0,i.jsx)(st,{}),(0,i.jsxs)(ft,{children:[(0,i.jsx)(dt,{children:"Multiplication"}),(0,i.jsx)(wt,{statistics:p}),m&&(0,i.jsx)(kt,{}),b&&(0,i.jsx)(Ct,{onClick:()=>{const e=f(1);r(e),o(0),d(0),l([]),t("Question")}}),y&&(0,i.jsx)(zt,{value:s,maximum:1,remaining:20-a}),w&&(0,i.jsx)(mt,{question:v,answer:g,onAnswer:e=>{const t=v.correctAnswer===e.answer;t&&d((e=>e+1));const n=v.question,r=p[n]??{ok:0,ng:0,errors:[]},a=t?r.errors??[]:[...r.errors??[],+e.answer],o={[n]:{ok:r.ok+(t?1:0),ng:r.ng+(t?0:1),errors:a}};h({...p,...o}),l((t=>[...t,e]))}}),_&&(0,i.jsx)(St,{onClick:()=>{a<0?(o((e=>e+1)),t("Question")):t("End")}})]})]})};const Nt=document.getElementById("root");if(null!=Nt){u(Nt).render((0,i.jsx)(Pt,{}))}
+`;var Et=({value:e,maximum:t,remaining:n})=>(0,i.jsxs)(Ct,{children:["Score: ",e," / ",t," (",n,")"]});var zt=()=>{const[e,t]=(0,c.useState)("Start"),[n,r]=(0,c.useState)([]),[a,o]=(0,c.useState)(0),[u,l]=(0,c.useState)([]),[s,d]=(0,c.useState)(0),[p,h]=pt("statistics",{}),v=n[a],g=u[a],m="End"===e,y="Question"===e||"End"===e,b="Start"===e||"End"===e,w="Question"===e,_=w&&void 0!==g;return(0,i.jsxs)(i.Fragment,{children:[(0,i.jsx)(st,{}),(0,i.jsxs)(ft,{children:[(0,i.jsx)(dt,{children:"Multiplication"}),(0,i.jsx)(wt,{statistics:p}),m&&(0,i.jsx)(kt,{}),b&&(0,i.jsx)(St,{onClick:()=>{const e=f(20);r(e),o(0),d(0),l([]),t("Question")},children:"START"}),y&&(0,i.jsx)(Et,{value:s,maximum:20,remaining:20-a}),w&&(0,i.jsx)(mt,{question:v,answer:g,onAnswer:e=>{const t=v.correctAnswer===e.answer;t&&d((e=>e+1));const n=v.question,r=p[n]??{ok:0,ng:0,errors:[]},a=t?r.errors??[]:[...r.errors??[],+e.answer],o={[n]:{ok:r.ok+(t?1:0),ng:r.ng+(t?0:1),errors:a}};h({...p,...o}),l((t=>[...t,e]))}}),_&&(0,i.jsx)(St,{onClick:()=>{a<19?(o((e=>e+1)),t("Question")):t("End")},children:"NEXT"})]})]})};const Pt=document.getElementById("root");if(null!=Pt){u(Pt).render((0,i.jsx)(zt,{}))}
