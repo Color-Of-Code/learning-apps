@@ -20,7 +20,7 @@ const StatisticsView: React.FC<Props> = ({ statistics }) => {
     const backgroundColor =
       isNaN(ratio)
         ? 'gray'
-        : (!isNaN(ratio) && ratio > 0.9)
+        : (ratio > 0.9)
         ? 'blue'
         : interpolateColor('00ff00', 'ff0000', ratio);
 

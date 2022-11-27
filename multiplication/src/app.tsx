@@ -59,20 +59,19 @@ const App: React.FC = () => {
     setAnswers(prev => [...prev, answer]);
   };
 
-  const next = (): void => {
+  const processNext = (): void => {
     if (number < questionAmount - 1) {
-      setNumber(prev => prev + 1);
       setScreen('Question');
+      setNumber(prev => prev + 1);
     } else {
       setScreen('End');
     }
   };
 
   const showEnd = screen === 'End';
-  const showScore = screen === 'Question' || screen === 'End';
+  const showScore = screen !== 'Start';
   const showStart = screen === 'Start' || screen === 'End';
   const showQuestion = screen === 'Question';
-  const showNext = showQuestion && (currentAnswer !== undefined);
 
   return (
     <>
@@ -82,15 +81,15 @@ const App: React.FC = () => {
         <StatisticsView statistics={statistics} />
         {showEnd && <BannerEnd />}
         {showStart && <Command onClick={start}>START</Command>}
-        {showScore && <Score value={score} maximum={questionAmount} remaining={20 - number} />}
+        {showScore && <Score value={score} maximum={questionAmount} remaining={questionAmount - number - 1} />}
         {showQuestion && (
           <QuestionCard
             question={currentQuestion}
             answer={currentAnswer}
             onAnswer={processAnswer}
+            onNext={processNext}
           />
         )}
-        {showNext && <Command onClick={next}>NEXT</Command>}
       </Wrapper>
     </>
   );
