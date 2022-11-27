@@ -31,7 +31,7 @@ const QuestionCard: React.FC<Props> = ({
 
   return (
     <Wrapper>
-      <QuestionWrapper>{question.question}</QuestionWrapper>
+      <QuestionWrapper>{question.title}</QuestionWrapper>
 
       {question.possibleAnswers.map((a: string, i: number) => (
         <ButtonWrapper

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { Answer, Question, Screen, Statistics } from './types';
-import { createQuestions } from './utils';
+import { createQuestions } from './utils/questions';
 
 import { GlobalStyle, Title, Wrapper } from './app.styles';
 import { useLocalStorage } from './hooks/use-local-storage';
@@ -41,9 +41,11 @@ const App: React.FC = () => {
     const correct = currentQuestion.correctAnswer === answer.answer;
     if (correct) setScore(prev => prev + 1);
 
-    const key = currentQuestion.question;
+    const key = currentQuestion.title;
     const value = statistics[key] ?? { ok: 0, ng: 0, errors: [] };
-    const errors = correct ? (value.errors ?? []) : [...(value.errors ?? []), +answer.answer];
+    const errors = correct
+      ? (value.errors ?? [])
+      : [...(value.errors ?? []), +answer.answer];
 
     const statUpdate = {
       [key]: {

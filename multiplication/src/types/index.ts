@@ -6,9 +6,15 @@ export interface Answer {
 export type Screen = 'Start' | 'Question' | 'End';
 
 export interface Question {
-  question: string
+  title: string
   correctAnswer: string
   possibleAnswers: string[]
+}
+
+export interface FlashCard {
+  question: Question
+  group: number
+  statistics: StatisticsEntry
 }
 
 export interface StatisticsEntry {
