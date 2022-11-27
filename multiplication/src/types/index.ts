@@ -15,9 +15,12 @@ export interface Question {
   possibleAnswers: string[]
 }
 
+export interface StatisticsEntry {
+  ng: number
+  ok: number
+  errors: number[]
+}
+
 export interface Statistics {
-  [key: string]: {
-    ng: number
-    ok: number
-  } | null
+  [key: string]: StatisticsEntry
 }

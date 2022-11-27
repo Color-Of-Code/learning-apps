@@ -39,11 +39,14 @@ const App: React.FC = () => {
     if (correct) setScore(prev => prev + 1);
 
     const key = currentQuestion.question;
-    const value = statistics[key] ?? { ok: 0, ng: 0 };
+    const value = statistics[key] ?? { ok: 0, ng: 0, errors: [] };
+    const errors = correct ? (value.errors ?? []) : [...(value.errors ?? []), +answer.answer];
+
     const statUpdate = {
       [key]: {
         ok: value.ok + (correct ? 1 : 0),
-        ng: value.ng + (correct ? 0 : 1)
+        ng: value.ng + (correct ? 0 : 1),
+        errors
       }
     };
     setStatistics({
