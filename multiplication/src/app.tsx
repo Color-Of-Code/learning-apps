@@ -9,11 +9,10 @@ import { useLocalStorage } from './hooks/use-local-storage';
 import QuestionCard from './component/question-card';
 import StatisticsView from './component/statistics';
 import BannerEnd from './component/banner-end';
-import BannerNext from './component/banner-next';
-import BannerStart from './component/banner-start';
+import Command from './component/command';
 import Score from './component/score';
 
-const questionAmount = 1;
+const questionAmount = 20;
 
 const App: React.FC = () => {
   const [screen, setScreen] = useState<Screen>('Start');
@@ -82,7 +81,7 @@ const App: React.FC = () => {
         <Title>Multiplication</Title>
         <StatisticsView statistics={statistics} />
         {showEnd && <BannerEnd />}
-        {showStart && <BannerStart onClick={start} />}
+        {showStart && <Command onClick={start}>START</Command>}
         {showScore && <Score value={score} maximum={questionAmount} remaining={20 - number} />}
         {showQuestion && (
           <QuestionCard
@@ -91,7 +90,7 @@ const App: React.FC = () => {
             onAnswer={processAnswer}
           />
         )}
-        {showNext && <BannerNext onClick={next} />}
+        {showNext && <Command onClick={next}>NEXT</Command>}
       </Wrapper>
     </>
   );
