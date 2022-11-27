@@ -1,18 +1,18 @@
-import { range } from 'lodash';
-import React from 'react';
+import { min, range } from 'lodash';
+import React, { ReactNode } from 'react';
 
 import { Statistics } from '../types';
 
 interface Props {
-  statistics: Statistics;
+  statistics: Statistics
 }
 
 const StatisticsView: React.FC<Props> = ({ statistics }) => {
-  const cell = (a: number, b: number) => {
+  const cell = (a: number, b: number): ReactNode => {
     const key = `${a} x ${b}`;
-    const v = statistics[key];
-    const c = v?.ok + v?.ng;
-    const ratio = (v?.ok || 0) / (c || 1);
+    const v = statistics[key] ?? { ok: 0, ng: 0 };
+    const c = min([v.ok + v.ng, 1]);
+    const ratio = v.ok / c;
 
     const opacity = v == null ? undefined : `${0.5 + v.ok / c / 2}`;
     const cssStyle = {
@@ -29,7 +29,7 @@ const StatisticsView: React.FC<Props> = ({ statistics }) => {
     return <td style={cssStyle} width="16px" height="16px"></td>;
   };
 
-  const row = (a: number) => {
+  const row = (a: number): ReactNode => {
     return <tr>{range(1, 11).map(b => cell(a, b))}</tr>;
   };
 

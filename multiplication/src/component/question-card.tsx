@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Dispatch } from 'react';
 
 import { Answer, Question } from '../types';
 
@@ -6,7 +6,7 @@ import { Wrapper, ButtonWrapper } from './question-card.styles';
 
 interface Props {
   question: Question
-  onAnswer: any
+  onAnswer: Dispatch<Answer>
   answer: Answer | undefined
   number: number
   total: number
@@ -21,7 +21,7 @@ const QuestionCard: React.FC<Props> = ({
 }) => {
   const answerProvided = !(answer == null);
 
-  const procesAnswer = (answer: string) => {
+  const procesAnswer = (answer: string): void => {
     onAnswer({
       question,
       answer

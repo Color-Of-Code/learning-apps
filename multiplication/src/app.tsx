@@ -53,7 +53,7 @@ const App: React.FC = () => {
     setAnswers(prev => [...prev, answer]);
   };
 
-  const handleNext = () => {
+  const handleNext = (): void => {
     if (number < questionAmount - 1) {
       setNumber(prev => prev + 1);
       setScreen(Screen.Question);
@@ -72,7 +72,7 @@ const App: React.FC = () => {
     <>
       <GlobalStyle />
       <Wrapper>
-        <h1>Lara's Multiplication</h1>
+        <h1>Multiplication</h1>
         <StatisticsView statistics={statistics} />
         {showEnd && <div className="complete">END</div>}
         {showStart && (
