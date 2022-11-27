@@ -18,8 +18,8 @@ function createQuestion (): Question {
   );
   return {
     title,
-    correctAnswer: correct,
-    possibleAnswers: shuffleArray([...incorrect, correct])
+    correct,
+    candidates: shuffleArray([...incorrect, correct])
   };
 }
 

@@ -34,14 +34,14 @@ const App: React.FC = () => {
   };
 
   const processAnswer = (answer: Answer): void => {
-    const correct = question.correctAnswer === answer.answer;
+    const correct = question.correct === answer.value;
     if (correct) setScore(prev => prev + 1);
 
     const key = question.title;
     const value = statistics[key] ?? { ok: 0, ng: 0, errors: [] };
     const errors = correct
       ? (value.errors ?? [])
-      : [...(value.errors ?? []), +answer.answer];
+      : [...(value.errors ?? []), +answer.value];
 
     const statUpdate = {
       [key]: {
