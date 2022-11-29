@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 
-import { Answer, Question, Screen, Statistics } from './types';
-import { createQuestions } from './utils/questions';
+import { Answer, FlashCard, Question, Statistics } from './types';
+import { createQuestion, pickCard } from './utils/questions';
+import { createFlashcards } from './utils/flashcards';
 
 import { GlobalStyle, Title, Wrapper } from './app.styles';
 import { useLocalStorage } from './hooks/use-local-storage';
@@ -12,35 +13,39 @@ import Command from './component/command';
 import Score from './component/score';
 
 const App: React.FC = () => {
-  const [screen, setScreen] = useState<Screen>('Start');
-  const [questions, setQuestions] = useState<Question[]>([]);
-  const [number, setNumber] = useState<number>(0);
-  const [answer, setAnswer] = useState<Answer|null>(null);
+  const [deck] = useState<FlashCard[]>(createFlashcards);
+  const [card, setCard] = useState<FlashCard>();
+  const [answer, setAnswer] = useState<Answer>();
+  const [question, setQuestion] = useState<Question>();
   const [score, setScore] = useState<number>(0);
-  const [statistics, setStatistics] = useLocalStorage<Statistics>(
+  const [statistics, saveStatistics] = useLocalStorage<Statistics>(
     'statistics',
     {}
   );
 
-  const question = questions[number];
-
   const start = (): void => {
-    const newQuestions = createQuestions(20);
-    setQuestions(newQuestions);
-    setNumber(0);
     setScore(0);
-    setAnswer(null);
-    setScreen('Question');
+    processNext();
+  };
+
+  const processNext = (): void => {
+    const c = pickCard(deck);
+    setCard(c);
+    setQuestion(createQuestion(c));
+    setAnswer(undefined);
   };
 
   const processAnswer = (answer: Answer): void => {
-    const correct = question.correct === answer.value;
+    if (card === undefined) return;
+
+    const q = card.question;
+    const correct = q.correct === answer.value;
     if (correct) setScore(prev => prev + 1);
 
-    const key = question.title;
+    const key = q.title;
     const value = statistics[key] ?? { ok: 0, ng: 0, errors: [] };
     const errors = correct
-      ? (value.errors ?? [])
+      ? value.errors ?? []
       : [...(value.errors ?? []), +answer.value];
 
     const statUpdate = {
@@ -50,21 +55,12 @@ const App: React.FC = () => {
         errors
       }
     };
-    setStatistics({
+    saveStatistics({
       ...statistics,
       ...statUpdate
     });
     setAnswer(answer);
   };
-
-  const processNext = (): void => {
-    setNumber(prev => prev + 1);
-    setAnswer(null);
-  };
-
-  const showScore = screen !== 'Start';
-  const showStart = screen === 'Start';
-  const showQuestion = screen === 'Question';
 
   return (
     <>
@@ -72,15 +68,18 @@ const App: React.FC = () => {
       <Wrapper>
         <Title>Multiplication</Title>
         <StatisticsView statistics={statistics} />
-        {showStart && <Command onClick={start}>START</Command>}
-        {showScore && <Score value={score} />}
-        {showQuestion && (
-          <QuestionCard
-            question={question}
-            answer={answer}
-            onAnswer={processAnswer}
-            onNext={processNext}
-          />
+        {card !== undefined ? (
+          <>
+            <Score value={score} />
+            <QuestionCard
+              question={question}
+              answer={answer}
+              onAnswer={processAnswer}
+              onNext={processNext}
+            />
+          </>
+        ) : (
+          <Command onClick={start}>START</Command>
         )}
       </Wrapper>
     </>

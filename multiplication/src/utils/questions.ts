@@ -1,27 +1,31 @@
-import { uniq } from 'lodash';
-
-import { Question } from '../types';
+import { FlashCard, Question } from '../types';
 
 const shuffleArray = (array: string[]): string[] => {
   return [...array].sort(() => Math.random() - 0.5);
 };
 
-function createQuestion (): Question {
-  const a = Math.floor(Math.random() * 10) + 1;
-  const b = Math.floor(Math.random() * 10) + 1;
-  const title = `${a} x ${b}`;
-  const correct = `${a * b}`;
-  const incorrect = uniq(
-    [`${a * b - 2}`, `${a * b + 2}`, `${a * (b - 1)}`, `${a * (b + 1)}`].filter(
-      n => +n > 0 && +n < 100 && +n !== +correct
-    )
-  );
+export function createQuestion (card: FlashCard): Question {
+  const { title, correct, options } = card.question;
   return {
     title,
     correct,
-    candidates: shuffleArray([...incorrect, correct])
+    options: shuffleArray(options)
   };
 }
 
-export const createQuestions = (amount: number): Question[] =>
-  [...Array(amount).keys()].map(() => createQuestion());
+export function pickCards (deck: FlashCard[], amount: number): FlashCard[] {
+  const size = deck.length;
+  let result: number[] = [];
+  const pool: number[] = [...Array(size).keys()];
+
+  // Fisher-Yates
+  while (result.length < amount) {
+    const index = Math.floor(Math.random() * pool.length);
+    result = result.concat(pool.splice(index, 1));
+  }
+  return result.map(n => deck[n]);
+}
+
+export function pickCard (deck: FlashCard[]): FlashCard {
+  return pickCards(deck, 1)[0];
+}

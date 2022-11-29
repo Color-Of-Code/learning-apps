@@ -1,5 +1,3 @@
-export type Screen = 'Start' | 'Question';
-
 export interface Answer {
   value: string
   // duration: string // timing
@@ -8,7 +6,7 @@ export interface Answer {
 export interface Question {
   title: string
   correct: string
-  candidates: string[]
+  options: string[]
 }
 
 export interface FlashCard {

@@ -23,14 +23,11 @@ const QuestionCard: React.FC<Props> = ({
   const processAnswer = (value: string): void => {
     onAnswer({ value });
   };
-
-  const showNext = answer !== undefined;
-
   return (
     <Wrapper>
       <QuestionWrapper>{question.title}</QuestionWrapper>
 
-      {question.candidates.map((a: string, i: number) => (
+      {question.options.map((a: string, i: number) => (
         <ButtonWrapper
           correct={question.correct === a && answerProvided}
           userClicked={answer?.value === a}
@@ -41,7 +38,7 @@ const QuestionCard: React.FC<Props> = ({
           </button>
         </ButtonWrapper>
       ))}
-      {showNext && <Command onClick={onNext}>NEXT</Command>}
+      {answerProvided && <Command onClick={onNext}>NEXT</Command>}
     </Wrapper>
   );
 };
