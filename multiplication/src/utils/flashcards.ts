@@ -1,7 +1,7 @@
 import { uniq } from 'lodash';
 import { FlashCard } from '../types';
 
-export function createFlashcards(): FlashCard[] {
+export function createFlashcards (): FlashCard[] {
   const cards: FlashCard[] = [];
   for (let a = 1; a < 11; a++) {
     for (let b = 1; b < 11; b++) {
@@ -29,4 +29,3 @@ export function createFlashcards(): FlashCard[] {
   }
   return cards;
 }
-

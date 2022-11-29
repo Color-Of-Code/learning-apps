@@ -1,10 +1,11 @@
 import { Dispatch, useEffect, useState } from 'react';
 
-export function useLocalStorage<TValue>(storageKey: string, fallbackState: TValue): [TValue, Dispatch<TValue>] {
+export function useLocalStorage<TValue>(storageKey: string, stateFunc: () => TValue): [TValue, Dispatch<TValue>] {
   const initialState = (): TValue => {
-    const json = localStorage.getItem(storageKey) ?? '{}';
-    const state: TValue = JSON.parse<TValue>(json);
-    return state ?? fallbackState;
+    const json = localStorage.getItem(storageKey);
+    return (json == null)
+      ? stateFunc()
+      : JSON.parse<TValue>(json);
   };
 
   const [value, setValue] = useState<TValue>(initialState);
