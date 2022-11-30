@@ -4,7 +4,7 @@ const shuffleArray = (array: string[]): string[] => {
   return [...array].sort(() => Math.random() - 0.5);
 };
 
-export function createQuestion (card: FlashCard): Question {
+export function createQuestion(card: FlashCard): Question {
   const { title, correct, options } = card.question;
   return {
     title,

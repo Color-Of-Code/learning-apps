@@ -6,7 +6,6 @@ interface Props {
   value: number;
 }
 
-const Score: React.FC<Props> = ({ value }) =>
-  <Wrapper>Score: {value}</Wrapper>;
+const Score: React.FC<Props> = ({ value }) => <Wrapper>Score: {value}</Wrapper>;
 
 export default Score;

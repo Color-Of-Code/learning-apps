@@ -6,24 +6,16 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   body{
-    background-size: cover;
     padding: 0 20px;
-    display: flex;
     justify-content: center;
-  }
-
-  div {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    font-family: 'Comic Sans', sans-serif;
   }
 
   *{
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
 
-    font-family: 'Code Sans', sans-serif;
+    box-sizing: border-box;
     text-align: center;
   }
 `;
@@ -36,10 +28,7 @@ export const Wrapper = styled.div`
 
 export const Title = styled.h1`
   color: darkblue;
-  background-size: 100%;
-  background-clip: text;
-  font-size: 35px;
+  font-size: 40px;
   font-weight: bolder;
-  text-align: center;
-  margin: 20px;
+  margin: 10px;
 `;

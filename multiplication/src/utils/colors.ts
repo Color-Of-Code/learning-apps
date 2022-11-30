@@ -1,13 +1,13 @@
-function hex (input: number): string {
+function hex(input: number): string {
   const x = input.toString(16);
   return x.length === 1 ? '0' + x : x;
 }
 
-function getValue (input: string, position: number): number {
+function getValue(input: string, position: number): number {
   return parseInt(input.substring(position, position + 2), 16);
 }
 
-function interpolateValue (
+function interpolateValue(
   value1: number,
   value2: number,
   ratio: number
@@ -15,7 +15,7 @@ function interpolateValue (
   return Math.ceil(value1 * ratio + value2 * (1 - ratio));
 }
 
-export function interpolateColor (
+export function interpolateColor(
   color1: string,
   color2: string,
   ratio: number

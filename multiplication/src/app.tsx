@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Answer, FlashCard, Question, Statistics } from './types';
+import { Answer, FlashCard, Question } from './types';
 
 import { createQuestion } from './utils/questions';
 import { createFlashcards } from './utils/flashcards';
@@ -15,7 +15,10 @@ import Command from './component/command';
 import Score from './component/score';
 
 const App: React.FC = () => {
-  const [deck, saveDeck] = useLocalStorage<FlashCard[]>('flashcards', createFlashcards);
+  const [deck, saveDeck] = useLocalStorage<FlashCard[]>(
+    'flashcards',
+    createFlashcards
+  );
   const [card, setCard] = useState<FlashCard>();
   const [answer, setAnswer] = useState<Answer>();
   const [question, setQuestion] = useState<Question>();

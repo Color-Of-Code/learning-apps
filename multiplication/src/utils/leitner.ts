@@ -1,6 +1,7 @@
+import { map } from 'lodash';
 import { Answer, FlashCard } from '../types';
 
-function pickCards (deck: FlashCard[], amount: number): FlashCard[] {
+function pickCards(deck: FlashCard[], amount: number): FlashCard[] {
   const size = deck.length;
   let result: number[] = [];
   const pool: number[] = [...Array(size).keys()];
@@ -10,14 +11,14 @@ function pickCards (deck: FlashCard[], amount: number): FlashCard[] {
     const index = Math.floor(Math.random() * pool.length);
     result = result.concat(pool.splice(index, 1));
   }
-  return result.map(n => deck[n]);
+  return map(result, n => deck[n]);
 }
 
-export function pickCard (deck: FlashCard[]): FlashCard {
+export function pickCard(deck: FlashCard[]): FlashCard {
   return pickCards(deck, 1)[0];
 }
 
-export function dropCard (card: FlashCard, answer: Answer): void {
+export function dropCard(card: FlashCard, answer: Answer): void {
   const q = card.question;
   const correct = answer.value === q.correct;
   const value = card.statistics;

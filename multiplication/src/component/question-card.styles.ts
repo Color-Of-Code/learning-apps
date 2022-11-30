@@ -21,8 +21,8 @@ export const QuestionWrapper = styled.div`
 `;
 
 interface ButtonProps {
-  correct: boolean
-  userClicked: boolean
+  correct: boolean;
+  userClicked: boolean;
 }
 
 export const ButtonWrapper = styled.div<ButtonProps>`
@@ -38,7 +38,7 @@ export const ButtonWrapper = styled.div<ButtonProps>`
     user-select: none;
     width: 50%;
     background: ${({ correct, userClicked }: ButtonProps) =>
-    correct ? '#5af75a' : !correct && userClicked ? 'red' : null};
+      correct ? '#5af75a' : !correct && userClicked ? 'red' : null};
     margin-bottom: 5px;
     border-radius: 5px;
     padding: 5px 10px;

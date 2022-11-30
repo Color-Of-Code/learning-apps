@@ -3,13 +3,17 @@ import React, { Dispatch } from 'react';
 import { Answer, Question } from '../types';
 import Command from './command';
 
-import { Wrapper, ButtonWrapper, QuestionWrapper } from './question-card.styles';
+import {
+  Wrapper,
+  ButtonWrapper,
+  QuestionWrapper
+} from './question-card.styles';
 
 interface Props {
-  question: Question
-  onAnswer: Dispatch<Answer>
-  onNext: Dispatch<void>
-  answer: Answer | null
+  question: Question;
+  onAnswer: Dispatch<Answer>;
+  onNext: Dispatch<void>;
+  answer: Answer | null;
 }
 
 const QuestionCard: React.FC<Props> = ({
@@ -33,7 +37,11 @@ const QuestionCard: React.FC<Props> = ({
           userClicked={answer?.value === a}
           key={i}
         >
-          <button disabled={answerProvided} value={a} onClick={() => processAnswer(a)}>
+          <button
+            disabled={answerProvided}
+            value={a}
+            onClick={() => processAnswer(a)}
+          >
             <span>{a}</span>
           </button>
         </ButtonWrapper>
